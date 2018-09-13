@@ -5,12 +5,12 @@ from . import byte
 from . import dirs
 from . import logger
 
-def handle_items(config, items):
+def handle_items(items):
     for item in items:
-        handle_item(config, item)
+        handle_item(item[0], item[1])
 
-def handle_item(config, item):
-    db_name = item[0]
+def handle_item(db_name, config):
+    print(config)
     backup_dir = config["base_dir"] + "/" + db_name
     backup_path = backup_dir + "/" + config["seed"] + ".sql.gz"
 
@@ -32,14 +32,14 @@ def handle_item(config, item):
     logger.end_progress("%.2f MB" % backup_size_mb)
 
     logger.log_info("Cleaning expired backups...")
-    expired_files = dirs.release_files(backup_dir, config["retain_db"])
+    expired_files = dirs.release_files(backup_dir, config["retain"])
     for expired_file in expired_files:
         expired_file_path = backup_dir + "/" + expired_file
         logger.start_progress("Deleting " + expired_file_path)
         os.remove(expired_file_path)
         logger.end_progress()
 
-    logger.log_info("Expired snapshots deleted.")
+    logger.log_info("Expired backups deleted.")
 
 def dump_sql(db, backup_path):
     os.system("mysqldump --force --triggers --single-transaction %s | gzip -c > %s" 

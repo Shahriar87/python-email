@@ -8,4 +8,4 @@ def release_files(to_clean, retain):
         if os.path.isfile(to_clean + "/" + entry):
             entry_files.append(entry)
     entry_files.sort()
-    return entry_files[0:-retain]
+    return entry_files[0:(-int(retain))]

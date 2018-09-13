@@ -8,12 +8,11 @@ import time
 from . import byte
 from . import logger
 
-def handle_items(config, items):
+def handle_items(items):
     for item in items:
-        handle_item(config, item)
+        handle_item(item[0], item[1])
 
-def handle_item(config, item):
-    disk_name = item[0]
+def handle_item(disk_name, config):
     real_prefix = config["prefix"] + "-"
     snap_prefix = real_prefix + config["seed"] + "-" + disk_name
 
@@ -32,7 +31,7 @@ def handle_item(config, item):
         disk_name, real_prefix)
 
     expired_snapshots = release_snapshots(disk_snapshots, 
-        config["retain_disk"])
+        config["retain"])
 
     logger.log_info("Cleaning expired snapshots...")
     for snapshot in expired_snapshots:
