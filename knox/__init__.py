@@ -60,6 +60,7 @@ def main(items):
             + ", ".join(invalid_items))
     
     # Execute backups
+    logger.log_debug("Processing %d items." % len(items))
     for driver_id in sorted_items:
         driver_items = sorted_items[driver_id]
         logger.log_debug("Sending %d item(s) to driver %s" % (len(driver_items), driver_id))
