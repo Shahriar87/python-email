@@ -17,7 +17,7 @@ def get_drivers():
 def get_default_config():
     return {
         "base_dir": os.getenv('HOME') + "/backups",
-        "dry_run": True,
+        "dry_run": False,
         "gcloud_bin": "/snap/bin/gcloud",
         "log_level": 100,
         "retain_db": 14,
