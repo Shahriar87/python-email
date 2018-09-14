@@ -10,7 +10,6 @@ def handle_items(items):
         handle_item(item[0], item[1])
 
 def handle_item(db_name, config):
-    print(config)
     backup_dir = config["base_dir"] + "/" + db_name
     backup_path = backup_dir + "/" + config["seed"] + ".sql.gz"
 
