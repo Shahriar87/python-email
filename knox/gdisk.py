@@ -80,7 +80,7 @@ def release_snapshots(snapshots, retain):
     snapshot_names = []
     for snapshot in snapshots:
         snapshot_names.append(snapshot["name"])
-    return snapshot_names[0:-retain]
+    return snapshot_names[0:(-int(retain))]
 
 def delete_snapshot(gcloud_bin, name):
     subprocess.check_output([
