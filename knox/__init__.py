@@ -55,7 +55,7 @@ def main(items):
     invalid_drivers = list(set(item_drivers) - set(system_drivers))
     if len(invalid_drivers) > 0:
         raise ValueError("System does not support drivers: " 
-            + ", ".join(invalid_items))
+            + ", ".join(invalid_drivers))
     
     # Execute backups
     logger.log_debug("Processing %d items." % len(items))
