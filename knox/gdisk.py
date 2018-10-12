@@ -56,7 +56,7 @@ def snapshot_disk(gcloud_bin, disk, name):
         name
     ], stderr=null_fh)
     null_fh.close()
-    snapped = json.loads(snapped_json)
+    snapped = json.loads(snapped_json.decode('utf-8'))
     snapshot = snapped[0]
     return snapshot["storageBytes"]
 
@@ -74,7 +74,7 @@ def list_disk_snapshots(gcloud_bin, disk, prefix):
         "--filter",
         ("name~'^%s'" % prefix)
     ])
-    return json.loads(snapshots_json)
+    return json.loads(snapshots_json.decode('utf-8'))
 
 def release_snapshots(snapshots, retain):
     snapshot_names = []
