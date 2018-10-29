@@ -5,7 +5,7 @@ import os
 import knox.logger
 import knox.gdisk
 import knox.mysql
-import knox.mongodb
+import knox.mongo
 
 RC_PATH = os.getenv('HOME') + '/.knox.cfg'
 
@@ -13,7 +13,7 @@ def get_drivers():
     return {
         "mysql": knox.mysql,
         "gdisk": knox.gdisk,
-        "mongodb": knox.mongodb
+        "mongo": knox.mongo
     }
 
 def get_default_config():
