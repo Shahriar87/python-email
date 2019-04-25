@@ -1,4 +1,4 @@
 
 import knox
 
-knox.main(['mysql:test'])
+knox.main(['mysql:app'])
