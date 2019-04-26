@@ -4,10 +4,21 @@ import time
 from . import byte
 from . import dirs
 from . import logger
+from . import email
 
 def handle_items(items):
     for item in items:
-        handle_item(item[0], item[1])
+        # Error Checking
+        try:
+            handle_item(item[0], item[1])
+        except:
+            msg = "!!!!! MYSQL connection failed !!!!!"
+            print(msg)
+            # error_email function call
+            email.error_email(msg)
+        else:
+            print("!!!! No fail on running MYSQL. Check for possible database connection errors !!!!")
+
 
 def handle_item(db_name, config):
     backup_dir = config["base_dir"] + "/" + db_name
