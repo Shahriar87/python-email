@@ -21,6 +21,7 @@ def handle_items(items):
 
 
 def handle_item(db_name, config):
+    
     backup_dir = config["base_dir"] + "/" + db_name
     backup_path = backup_dir + "/" + config["seed"] + ".sql.gz"
 

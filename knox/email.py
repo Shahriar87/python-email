@@ -31,26 +31,6 @@ def error_email(content):
     # Add body to email
     message.attach(MIMEText(body, "plain"))
 
-    filename = "error.txt"  # In same directory as script  
-
-    # open & write text file in binary mode
-    with open(filename, "rb") as attachment:
-        # Add file as application/octet-stream
-        # Email client can usually download this automatically as attachment
-        part = MIMEBase("application", "octet-stream")
-        part.set_payload(attachment.read())
-
-    # Encode file in ASCII characters to send by email    
-    encoders.encode_base64(part)
-
-    # Add header as key/value pair to attachment part
-    part.add_header(
-        "Content-Disposition",
-        f"attachment; filename= {filename}",
-    )
-
-    # Add attachment to message and convert message to string
-    message.attach(part)
     text = message.as_string()
 
     # Create a secure SSL context

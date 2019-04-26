@@ -20,7 +20,6 @@ def handle_items(items):
             print("!!!! No fail on running MONGO. Check for possible database connection errors !!!!")
 
 
-
 def handle_item(db_name, config):
     backup_dir = config["base_dir"] + "/" + db_name
     backup_path = backup_dir + "/" + config["seed"] + ".nosql.gz"
