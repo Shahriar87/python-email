@@ -9,6 +9,7 @@ import knox.mongo
 
 RC_PATH = os.getenv('HOME') + '/.knox.cfg'
 
+
 def get_drivers():
     return {
         "mysql": knox.mysql,
@@ -37,7 +38,10 @@ def main(items):
 
     # Prepare configuration
     sys_config = get_default_config()
+
     if usr_config.has_section('defaults'):
+
+        # print(usr_config.items('defaults'))
         sys_config.update(dict(usr_config.items('defaults')))
 
     validate_config(sys_config)
@@ -64,6 +68,7 @@ def main(items):
     for driver_id in sorted_items:
         prepared_items = prepare_items(sorted_items[driver_id], driver_id, sys_config, usr_config)
         logger.log_debug("Sending %d item(s) to driver %s" % (len(prepared_items), driver_id))
+        # print(drivers[driver_id].handle_items(prepared_items))
         drivers[driver_id].handle_items(prepared_items)
 
 def get_default_seed():
@@ -91,6 +96,8 @@ def validate_config(config):
         raise ValueError("Backup dir does not exist: " + config["base_dir"])
 
 def prepare_items(item_names, driver_id, sys_config, usr_config):
+    
+    # print(usr_config)
     prepared_items = []
     for name in item_names:
         full_name = driver_id + ':' + name
@@ -101,11 +108,14 @@ def prepare_items(item_names, driver_id, sys_config, usr_config):
         # Merge driver config
         if usr_config.has_section(driver_id):
             item_config.update(dict(usr_config.items(driver_id)))
+            
 
         # Merge item config
         if usr_config.has_section(full_name):
             item_config.update(dict(usr_config.items(full_name)))
 
         prepared_items.append((name, item_config))
+        # print(prepared_items)
 
+        
     return prepared_items
