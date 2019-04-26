@@ -12,6 +12,18 @@ def handle_items(items):
     for item in items:
         handle_item(item[0], item[1])
 
+        # Error Checking
+        try:
+            handle_item(item[0], item[1])
+        except:
+            msg = "!!!!! GDISK connection failed !!!!!"
+            print(msg)
+            # error_email function call
+            email.error_email(msg)
+        else:
+            print("!!!! No fail on running GDISK. Check for possible database connection errors !!!!")
+
+
 def handle_item(disk_name, config):
     real_prefix = config["prefix"] + "-"
     snap_prefix = real_prefix + config["seed"] + "-" + disk_name

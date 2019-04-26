@@ -1,22 +1,34 @@
 
 import os
 import time
+import unittest
 from . import byte
 from . import dirs
 from . import logger
-
+from . import email
 
 def handle_items(items):
     for item in items:
-        handle_item(item[0], item[1])
 
+        # Error Checking
+        try:
+            handle_item(item[0], item[1])
+        except:
+            msg = "!!!!! MYSQL connection failed !!!!!"
+            print(msg)
+            # error_email function call
+            email.error_email(msg)
+        else:
+            print("!!!! No fail on running MYSQL. Check for possible database connection errors !!!!")
+        
 
 def handle_item(db_name, config):
 
     backup_dir = config["base_dir"] + "/" + db_name
 
     username = config["user"]
-    password = config["password"]
+    #password = config["password"]
+    password 
 
     backup_path = backup_dir + "/" + config["seed"] + ".sql.gz"
 
@@ -27,11 +39,13 @@ def handle_item(db_name, config):
     logger.log_info("Processing MySQL backup [%s]" % db_name)
     logger.start_progress("Writing " + backup_path)
 
+    
     if not config["dry_run"]:
-        dump_sql(username, password, db_name, backup_path)
+        dump_sql(username, password, db_name, backup_path)  
     else:
         open(backup_path, 'a').close()
         time.sleep(1)
+    
 
     backup_size = os.path.getsize(backup_path)
     backup_size_mb = byte.b_to_mb(backup_size)
@@ -53,7 +67,9 @@ def dump_sql(username, password, db, backup_path):
     # os.system("mysqldump --force --triggers --single-transaction %s | gzip -c > %s"
     # % (db, backup_path))
 
-
     os.system("mysqldump -u %s -p%s --force --triggers --single-transaction %s | gzip -c > %s"
     % (username, password, db, backup_path))
+    
+ 
+    
 

@@ -69,7 +69,7 @@ def main(items):
     for driver_id in sorted_items:
         prepared_items = prepare_items(sorted_items[driver_id], driver_id, sys_config, usr_config)
         logger.log_debug("Sending %d item(s) to driver %s" % (len(prepared_items), driver_id))
-        # print(drivers[driver_id].handle_items(prepared_items))
+        # print("Hello: " + driver_id)
         drivers[driver_id].handle_items(prepared_items)
 
 def get_default_seed():
@@ -120,3 +120,6 @@ def prepare_items(item_names, driver_id, sys_config, usr_config):
 
         
     return prepared_items
+
+# error_email function call
+# knox.email.error_email()
