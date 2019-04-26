@@ -1,7 +1,6 @@
 
 import os
 import time
-import unittest
 from . import byte
 from . import dirs
 from . import logger

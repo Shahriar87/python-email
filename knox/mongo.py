@@ -3,6 +3,7 @@ import time
 from . import byte
 from . import dirs
 from . import logger
+from . import email
 
 
 def handle_items(items):

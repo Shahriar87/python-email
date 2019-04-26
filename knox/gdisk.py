@@ -7,6 +7,7 @@ import time
 
 from . import byte
 from . import logger
+from . import email
 
 def handle_items(items):
     for item in items:
