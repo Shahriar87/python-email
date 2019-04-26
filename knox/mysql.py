@@ -56,3 +56,4 @@ def dump_sql(username, password, db, backup_path):
 
     os.system("mysqldump -u %s -p%s --force --triggers --single-transaction %s | gzip -c > %s"
     % (username, password, db, backup_path))
+
