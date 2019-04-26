@@ -6,6 +6,7 @@ import knox.logger
 import knox.gdisk
 import knox.mysql
 import knox.mongo
+import knox.email
 
 RC_PATH = os.getenv('HOME') + '/.knox.cfg'
 
