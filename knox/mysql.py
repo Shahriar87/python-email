@@ -5,12 +5,19 @@ from . import byte
 from . import dirs
 from . import logger
 
+
 def handle_items(items):
     for item in items:
         handle_item(item[0], item[1])
 
+
 def handle_item(db_name, config):
+
     backup_dir = config["base_dir"] + "/" + db_name
+
+    username = config["user"]
+    password = config["password"]
+
     backup_path = backup_dir + "/" + config["seed"] + ".sql.gz"
 
     # Create backup directory
@@ -21,7 +28,7 @@ def handle_item(db_name, config):
     logger.start_progress("Writing " + backup_path)
 
     if not config["dry_run"]:
-        dump_sql(db_name, backup_path)
+        dump_sql(username, password, db_name, backup_path)
     else:
         open(backup_path, 'a').close()
         time.sleep(1)
@@ -40,6 +47,12 @@ def handle_item(db_name, config):
 
     logger.log_info("Expired backups deleted.")
 
-def dump_sql(db, backup_path):
-    os.system("mysqldump --force --triggers --single-transaction %s | gzip -c > %s" 
-        % (db, backup_path))
+
+def dump_sql(username, password, db, backup_path):
+    
+    # os.system("mysqldump --force --triggers --single-transaction %s | gzip -c > %s"
+    # % (db, backup_path))
+
+
+    os.system("mysqldump -u %s -p%s --force --triggers --single-transaction %s | gzip -c > %s"
+    % (username, password, db, backup_path))
