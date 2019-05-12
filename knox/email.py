@@ -17,8 +17,7 @@ def error_email(content):
     subject = "Backup Failed Confirmation Email!"
     body = content
     sender_email = "shah.developer87@gmail.com"
-    # password = input("Type your password and press enter: ")
-    password = "Innovator87"
+    password = input("Type your password and press enter: ")
     receiver_email = "sfiroz@razoyo.com" 
 
     # Create a multipart message and set headers
